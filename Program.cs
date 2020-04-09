@@ -1,128 +1,63 @@
 ﻿using System;
-using System.Data.Common;
-using Microsoft.VisualBasic.CompilerServices;
 
-namespace numere_rationale
+namespace operatii_numere_complexe
 {
-    class rational
+    class Program
     {
-        private int nr, nu;
-
-        public rational() { nr = 2; nu = 3; }
-        public rational(int a, int b)
-        { nr = a; nu = b; simplificare(); }
-
-        public void afisare()
+        public class complex
         {
-            if (nu == 1) Console.Write(nr);
-            else Console.Write(nr + "/" + nu);
-        }
-
-        public override string ToString()
-        {
-            if (nu == 1) return nr.ToString();
-            else return nr + "/" + nu;
-        }
-
-        public static rational operator +(rational a, rational b)
-        { return new rational(a.nr * b.nu + a.nu * b.nr, a.nu * b.nu); }
-
-        public static rational operator -(rational a, rational b)
-        { return new rational(a.nr * b.nu - a.nu * b.nr, a.nu * b.nu); }
-
-        public static rational operator *(rational a, rational b)
-        { return new rational(a.nr * b.nr, a.nu * b.nu); }
-
-        public static rational operator /(rational a, rational b)
-        { return new rational(a.nr * b.nu, a.nu * b.nr); }
-
-        public static bool operator <(rational a, rational b)
-        { return a.nr * b.nu < a.nu * b.nr; }
-
-        public static bool operator >(rational a, rational b)
-        { return a.nr * b.nu > a.nu * b.nr; }
-
-        public static bool operator <=(rational a, rational b)
-        { return !(a > b); }
-
-        public static bool operator >=(rational a, rational b)
-        { return !(a < b); }
-
-        public static bool operator ==(rational a, rational b)
-        { return a.nr * b.nu == a.nu * b.nr; }
-
-        public static bool operator !=(rational a, rational b)
-        { return !(a == b); }
-
-        public static int comparare(rational a, rational b)
-        {
-            if (a < b) return -1;
-            else if (a == b) return 0;
-            else return 1;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        private int cmmdc(int a, int b)
-        {
-            while (b != 0)
+            // consideram numarul complex de forma algebrica z = x + y * i
+            public int x;
+            public int y;
+            public static complex suma(complex numarComplex1, complex numarComplex2)
             {
-                int r = a % b; a = b; b = r;
+                complex sum = new complex();
+
+                sum.x = numarComplex1.x + numarComplex2.x;
+                sum.y = numarComplex1.y + numarComplex2.y;
+
+                return sum;
             }
-            return a;
-        }
-
-        private void simplificare()
-        {
-            int c = cmmdc(Math.Abs(nr), Math.Abs(nu));
-            nr = nr / c; nu = nu / c;
-            if (nr * nu < 0)
+            public static complex diferenta(complex numarComplex1, complex numarComplex2)
             {
-                nr = -Math.Abs(nr); nu = Math.Abs(nu);
+                complex dif = new complex();
+                //z1-z2=(a1-a2)-(b1-b2)*i
+                dif.x = numarComplex1.x - numarComplex2.x;
+                dif.y = numarComplex1.y - numarComplex2.y;
+
+                return dif;
+            }
+            public static complex produsul(complex numarComplex1, complex numarComplex2)
+            {
+                complex prod = new complex();
+                //z1*z2=(a1a2-b1b2)+(a1b2+a2b1)*i
+                //(a+bi)(c+di) = (ac−bd) + (ad+bc)i
+                prod.x = (numarComplex1.x*numarComplex2.x)-(numarComplex1.y*numarComplex2.y);
+                prod.y = (numarComplex1.x*numarComplex2.y) + (numarComplex2.x*numarComplex2.y);
+
+                return prod;
+            }
+            static void Main(string[] args)
+            {
+                complex z, w, s,d,p;
+
+                z = new complex();
+                w = new complex();
+                s = new complex();
+                d = new complex();
+                p = new complex();
+                z.x = 3; z.y = 2;
+                w.x = 2; w.y = 2;
+
+                s = suma(z,w);
+                d = diferenta(z, w);
+                p = produsul(z, w);
+
+                Console.WriteLine("S = {0} + ({1} * i)", s.x.ToString(), s.y.ToString());
+                Console.WriteLine("D = {0} + ({1} * i)", d.x.ToString(), d.y.ToString());
+                Console.WriteLine("P = {0} + ({1} * i)", p.x.ToString(), p.y.ToString());
+                Console.ReadKey();
             }
         }
     }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            rational z, w, s, d, p, c;
-            bool e;
-
-            z = new rational(2,3);//primul numar 2/3;
-            w = new rational(1,5);//al doilea numar 1/5;
-            s = new rational();//suma numerelor
-            d = new rational();
-            p = new rational();
-            c= new rational();
-            
-            
-            z.afisare();
-            Console.WriteLine();
-            w.afisare();
-            Console.WriteLine();
-            s = z + w;
-            Console.WriteLine();
-            Console.WriteLine("Suma numerelor este = {0} ",s.ToString());
-            d = z - w;
-            Console.WriteLine("difernta este= {0} ",d.ToString());
-            p = z * w;
-            Console.WriteLine("produsul numerelor este= {0} ",p.ToString());
-            c = z / w;
-            Console.WriteLine("catul numerelor este= {0} ",c.ToString());
-            e = z < w;
-            Console.WriteLine(e);
-            rational.comparare(z, w);
-            Console.WriteLine(rational.comparare(z,w));
-
-        }
-}
 }
