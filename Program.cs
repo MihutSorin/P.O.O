@@ -3,89 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
 
-namespace operatii_matrici
+namespace ordonare_fisier
 {
-    class Operatii
-    {
-        int[,] a;
-        int[,] b;
-
-        public Operatii()
-        {
-        }
-
-        public Operatii(int[,]a, int[,]b)
-        {
-            this.a = a;
-            this.b = b;
-        }
-        public int[,]Suma(int[,]a,int[,]b)
-        {
-            int[,] res = new int[a.GetLength(0), a.GetLength(1)];
-                        for (int k = 0; k < a.GetLength(0); k++)
-                            for (int j = 0; j < a.GetLength(1); j++)
-                                res[k, j] = a[k, j] + b[k, j];
-
-                    return res;
-        }
-
-        public int[,] Multiply(int[,] a, int[,] b)
-        {
-            int rows = a.GetLength(0);
-            int size = b.GetLength(0);
-            int cols = b.GetLength(1);
-            int[,] m = new int[rows, cols];
-
-            for (int k = 0; k < rows; k++)
-            {
-                for (int j = 0; j < cols; j++)
-                {
-                    int ret = 0;
-                    for (int x = 0; x < size; x++)
-                    {
-                        ret += a[k, x] * b[x, j];
-                    }
-                    m[k, j] = ret;
-                }
-            }
-            return m;
-        }
-    }
     class Program
     {
+        private static IEnumerable<string> lines;
+
         static void Main(string[] args)
         {
+            StreamReader sr = new StreamReader(@"..\..\data.txt");
+            StreamWriter sw = new StreamWriter(@"..\..\out.txt");
+            string line = sr.ReadToEnd();
+            string[] s = line.Split(';');
+            List<string> x = new List<string>();
+            foreach (string a in s)
+            {
+                x.Add(a);
+            }
+            x.Sort();
+            foreach (string var in x)
+            {
+                Capitalizat(var);
+                sw.WriteLine(var);
+            }
+          
+            sr.Close();
+            sw.Close();
 
-            int[,] a = {
-                        {1,2,3,4},
-                        {5,6,7,8},
-                        {9,1,2,3}
-                    };
-            int[,] b = {
-                        {1,2,3,4},
-                        {1,2,3,4},
-                        {1,2,3,4 } };
-            Operatii x = new Operatii();
-           print(x.Suma(a, b));
-            Console.WriteLine();
-            print(x.Multiply(a, b));
+            
             Console.ReadKey();
         }
 
-        private static void print(int[,]a)
+        private static void Capitalizat(string line)
         {
-            for (int i = 0; i < a.GetLength(0); i++)
+            Char[] ca = line.ToCharArray();
+
+            foreach (Match m in Regex.Matches(line, @"\b[a-z]"))
             {
-                for (int j = 0; j < a.GetLength(1); j++)
-                {
-                    Console.Write(a[i, j] + " ");
-                }
-                Console.WriteLine();
+                ca[m.Index] = Char.ToUpper(ca[m.Index]);
             }
+
+            Console.WriteLine(new string(ca));
         }
     }
 }
-
-
-
