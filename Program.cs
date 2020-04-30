@@ -3,89 +3,88 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.RegularExpressions;
 
-namespace operatii_matrici
+
+namespace elevi
 {
-    class Operatii
+    class Elev
     {
-        int[,] a;
-        int[,] b;
-
-        public Operatii()
+        public string nume;
+        public string prenume;
+        public double media;
+        private int numar_note;
+        private double[] note;
+        internal static void loadFromFile(string fileName)
         {
-        }
-
-        public Operatii(int[,]a, int[,]b)
-        {
-            this.a = a;
-            this.b = b;
-        }
-        public int[,]Suma(int[,]a,int[,]b)
-        {
-            int[,] res = new int[a.GetLength(0), a.GetLength(1)];
-                        for (int k = 0; k < a.GetLength(0); k++)
-                            for (int j = 0; j < a.GetLength(1); j++)
-                                res[k, j] = a[k, j] + b[k, j];
-
-                    return res;
-        }
-
-        public int[,] Multiply(int[,] a, int[,] b)
-        {
-            int rows = a.GetLength(0);
-            int size = b.GetLength(0);
-            int cols = b.GetLength(1);
-            int[,] m = new int[rows, cols];
-
-            for (int k = 0; k < rows; k++)
+            TextReader dataLoad = new StreamReader(fileName);
+            string buffer;
+            while ((buffer = dataLoad.ReadLine()) != null)
             {
-                for (int j = 0; j < cols; j++)
-                {
-                    int ret = 0;
-                    for (int x = 0; x < size; x++)
-                    {
-                        ret += a[k, x] * b[x, j];
-                    }
-                    m[k, j] = ret;
-                }
+                Console.WriteLine(buffer.ToLower());
+                
             }
-            return m;
         }
+        public Elev(string lastname, string firstname, int marks_number, double[] marks)
+        {
+            nume = lastname;
+            prenume = firstname;
+            media = 0;
+            numar_note = marks_number;
+            note = marks;
+
+            for (int i = 0; i < numar_note; i++)
+                media += note[i];
+
+            media /= numar_note;
+        }
+
+       
     }
     class Program
     {
+
         static void Main(string[] args)
         {
-
-            int[,] a = {
-                        {1,2,3,4},
-                        {5,6,7,8},
-                        {9,1,2,3}
-                    };
-            int[,] b = {
-                        {1,2,3,4},
-                        {1,2,3,4},
-                        {1,2,3,4 } };
-            Operatii x = new Operatii();
-           print(x.Suma(a, b));
+           
+          // Elev.loadFromFile(@"..\..\data.txt");
+            StreamReader sr = new StreamReader(@"..\..\data.txt");
+            string linii = sr.ReadToEnd();
+            Console.WriteLine(sr.ReadToEnd());
+            Capitalizat(linii);
             Console.WriteLine();
-            print(x.Multiply(a, b));
+           // string line = sr.ReadToEnd();
+            string[] s = linii.Split(' ');
+            List<string> x = new List<string>();
+            foreach (string a in s)
+            {
+                x.Add(a);
+              
+            }
+           
+            x.Sort();
+
+            List<int> y= new List<int>();
+            foreach (int b in linii)
+            {
+                y.Sort();
+
+            }
+
+            y.Sort();
             Console.ReadKey();
         }
-
-        private static void print(int[,]a)
+        internal static void Capitalizat(string line)
         {
-            for (int i = 0; i < a.GetLength(0); i++)
+            Char[] ca = line.ToCharArray();
+
+            foreach (Match m in Regex.Matches(line, @"\b[a-z]"))
             {
-                for (int j = 0; j < a.GetLength(1); j++)
-                {
-                    Console.Write(a[i, j] + " ");
-                }
-                Console.WriteLine();
+                ca[m.Index] = Char.ToUpper(ca[m.Index]);
             }
+
+            Console.WriteLine(new string(ca));
         }
     }
 }
-
-
-
