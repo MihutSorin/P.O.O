@@ -1,0 +1,7 @@
+C:\Users\sory\source\repos\POO\clasa elevi\elevi\bin\Debug\elevi.exe.config
+C:\Users\sory\source\repos\POO\clasa elevi\elevi\bin\Debug\elevi.exe
+C:\Users\sory\source\repos\POO\clasa elevi\elevi\bin\Debug\elevi.pdb
+C:\Users\sory\source\repos\POO\clasa elevi\elevi\obj\Debug\elevi.csprojAssemblyReference.cache
+C:\Users\sory\source\repos\POO\clasa elevi\elevi\obj\Debug\elevi.csproj.CoreCompileInputs.cache
+C:\Users\sory\source\repos\POO\clasa elevi\elevi\obj\Debug\elevi.exe
+C:\Users\sory\source\repos\POO\clasa elevi\elevi\obj\Debug\elevi.pdb

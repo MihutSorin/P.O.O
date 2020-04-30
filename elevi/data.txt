@@ -1,0 +1,4 @@
+﻿Mihut Sorin 1 8;
+Anton mihai 3 6 8 5;
+Ciucle Carmen 3 4 5 6;
+Dani Chis 1 6;
