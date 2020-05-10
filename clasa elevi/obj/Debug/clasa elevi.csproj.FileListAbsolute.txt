@@ -1,0 +1,7 @@
+E:\laboratoare poo\POO.2020\clasa elevi\obj\Debug\clasa elevi.csprojAssemblyReference.cache
+E:\laboratoare poo\POO.2020\clasa elevi\obj\Debug\clasa elevi.csproj.CoreCompileInputs.cache
+E:\laboratoare poo\POO.2020\clasa elevi\bin\Debug\clasa elevi.exe.config
+E:\laboratoare poo\POO.2020\clasa elevi\bin\Debug\clasa elevi.exe
+E:\laboratoare poo\POO.2020\clasa elevi\bin\Debug\clasa elevi.pdb
+E:\laboratoare poo\POO.2020\clasa elevi\obj\Debug\clasa elevi.exe
+E:\laboratoare poo\POO.2020\clasa elevi\obj\Debug\clasa elevi.pdb
